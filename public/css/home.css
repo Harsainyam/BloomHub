@@ -1,0 +1,480 @@
+
+
+/* ---------- Theme tokens ---------- */
+:root{
+  --green-700:#1b5e20;
+  --green-600:#2e7d32;
+  --green-500:#43a047;
+  --text:#1f2937;           /* slate-800 */
+  --muted:#6b7280;          /* slate-500 */
+  --bg:#ffffff;
+  --surface:#ffffff;
+  --surface-2:#fafafa;      /* subtle section bg */
+  --line:#e5e7eb;           /* light divider */
+  --radius:12px;
+  --shadow:0 6px 18px rgba(0,0,0,.06);
+}
+
+/* ---------- Reset / base ---------- */
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{
+  font-family:'Poppins',system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,'Apple Color Emoji','Segoe UI Emoji';
+  color:var(--text);
+  background:var(--bg);
+  line-height:1.6;
+}
+img{max-width:100%;display:block}
+a{color:inherit;text-decoration:none}
+button{font:inherit}
+
+/* Focus visibility */
+:focus-visible{
+  outline:3px solid rgba(67,160,71,.35);
+  outline-offset:2px;
+  border-radius:6px;
+}
+/* ---------- Header ---------- */
+header {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  background: var(--surface);
+  border-bottom: 1px solid var(--line);
+  display: flex;
+  align-items: center;
+  justify-content: space-between; /* evenly distributes logo, nav, and search */
+  padding: 0.9rem 2rem;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+}
+
+.logo img {
+  width: 62px;
+  height: 62px;
+  border-radius: 50%;
+}
+
+header h1 {
+  font-size: 1.40rem;
+  color: var(--green-700);
+  font-weight: 600;
+  letter-spacing: 0.2px;
+}
+
+/* Center nav items */
+nav {
+  flex: 1; /* take up remaining space */
+  display: flex;
+  justify-content: center; /* center the <ul> */
+}
+
+nav ul {
+  display: flex;
+  gap: 1.25rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+nav a {
+  font-weight: 500;
+  color: var(--text);
+  opacity: 0.9;
+  transition: opacity 0.2s, color 0.2s;
+}
+
+nav a:hover {
+  color: var(--green-600);
+  opacity: 1;
+}
+
+.search-cart {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.search-cart input {
+  padding: 0.5rem 0.8rem;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  min-width: 180px;
+}
+
+.icon-btn {
+  background: var(--green-600);
+  color: #fff;
+  border: 0;
+  border-radius: 10px;
+  padding: 0.5rem 0.7rem;
+  cursor: pointer;
+  transition: transform 0.08s ease, background 0.2s ease;
+}
+
+.icon-btn:hover {
+  background: var(--green-700);
+}
+
+.icon-btn:active {
+  transform: scale(0.97);
+}
+
+
+/* ---------- Hero / slideshow ---------- */
+.hero {
+  position: relative;
+  height: calc(64vh + 1.5rem); /* added same amount we cut */
+  min-height: calc(420px + 24px); /* 24px ≈ 1.5rem */
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.hero .overlay{
+  background:rgba(0,0,0,.42);
+  color:#fff; text-align:center; padding:2rem 2.25rem; border-radius:var(--radius);
+  box-shadow:var(--shadow);
+}
+.hero h2{font-size:2.4rem; margin:.25rem 0 .5rem}
+.hero p{opacity:.95; margin:0 0 1rem}
+.cta-btn{
+  border:0; border-radius:12px; padding:.8rem 1.4rem; cursor:pointer;
+  font-weight:600; background:var(--green-600); color:#fff;
+  transition:background .2s ease, transform .08s ease;
+}
+.cta-btn:hover{background:var(--green-700)}
+.cta-btn:active{transform:translateY(1px)}
+
+/* ---------- Feature strip (under hero) ---------- */
+.features {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0;
+  background: var(--surface);
+  border-bottom: 1px solid var(--line);
+  padding: 1rem 1.5rem;   /* reduced vertical padding */
+}
+
+.feature {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 0.35rem;           /* smaller gap between icon & text */
+  padding: 0.5rem 0.75rem; /* reduced padding */
+}
+
+.feature:not(:last-child) {
+  border-right: 1px solid var(--line);
+}
+
+.feature svg {
+  width: 36px;            /* reduced from 44px */
+  height: 36px;
+  color: var(--green-600);
+}
+
+.feature p {
+  color: var(--muted);
+  font-size: 0.9rem;       /* slightly smaller */
+  margin: 0;
+}
+
+.feature strong {
+  color: var(--green-700);
+}
+
+
+/* ---------- Generic section spacing ---------- */
+section{padding:2rem 2rem}
+h3{
+  font-size:1.75rem; text-align:center; color:var(--green-700);
+  margin:0 0 1.25rem;
+}
+
+/* ---------- Categories ---------- */
+.categories .grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr); /* exactly 4 per row */
+  gap: 1.2rem;
+}
+
+.card {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 1rem 1rem; /* more padding for bigger look */
+  text-align: center;
+  font-weight: 600;
+  transition: transform .15s ease, box-shadow .2s ease, border-color .2s ease;
+  width: 100%; /* force full cell width */
+}
+
+.card:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow);
+  border-color: #dfe4e8;
+}
+
+
+/* ---------- Best sellers ---------- */
+.best-sellers .grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  gap: 1.25rem;
+  align-items: stretch; /* ensures cards are equal height */
+}
+
+.product {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 1rem;
+  text-align: center;
+  transition: transform .15s, box-shadow .2s, border-color .2s;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between; /* makes content spread evenly */
+}
+
+.product img {
+  border-radius: 10px;
+  width: 100%;
+  height: 220px;        /* fixed box for all images */
+  object-fit: contain;  /* shows full image, no cropping */
+  background: #f9f9f9;  /* light background fills gaps */
+}
+
+.product h4 {
+  margin: .75rem 0 .35rem;
+  font-size: 1rem;
+}
+
+.product p {
+  margin: 0 0 .75rem;
+  color: var(--green-700);
+  font-weight: 600;
+}
+
+.product button {
+  border: 0;
+  border-radius: 10px;
+  padding: .55rem 1rem;
+  cursor: pointer;
+  background: var(--green-500);
+  color: #fff;
+  font-weight: 600;
+  transition: background .2s ease, transform .08s ease;
+}
+
+.product button:hover {
+  background: var(--green-600);
+}
+
+.product:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow);
+  border-color: #dfe4e8;
+}
+
+/* ---------- Promos ---------- */
+.promos{display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:1rem}
+.promo{
+  border-radius:14px; padding:1rem; color:#0f172a; font-weight:600; text-align:center;
+}
+.promo.green{ background:#e8f5e9 }   /* soft tints to keep theme calm */
+.promo.yellow{ background:#fffbe6 }
+.promo.pink{ background:#ffe9f0 }
+
+/* ---------- Blog ---------- */
+.blog .grid{
+  display:grid; grid-template-columns:repeat(auto-fit, minmax(260px,1fr)); gap:1.25rem;
+}
+.blog article{
+  background:var(--surface); border:1px solid var(--line); border-radius:14px;
+  overflow:hidden; transition:transform .15s, box-shadow .2s, border-color .2s;
+}
+.blog a{display:block; padding:0 0 1rem}
+.blog img{width:100%; height:190px; object-fit:cover}
+.blog h4{color:var(--green-700); margin:.9rem 1rem .4rem}
+.blog p{color:var(--muted); margin:0 1rem}
+.blog article:hover{transform:translateY(-4px); box-shadow:var(--shadow); border-color:#dfe4e8}
+
+/* ---------- Newsletter (main body) ---------- */
+.newsletter{text-align:center; background:var(--surface-2); border-top:1px solid var(--line); border-bottom:1px solid var(--line)}
+.newsletter p{color:var(--muted); margin:.25rem 0 1rem}
+.newsletter form{display:flex; justify-content:center; gap:.5rem; flex-wrap:wrap}
+.newsletter input{
+  padding:.7rem 1rem; border:1px solid var(--line); border-radius:12px; min-width:260px;
+}
+.newsletter button{
+  padding:.7rem 1.1rem; border:0; border-radius:12px; background:var(--green-600); color:#fff; font-weight:600; cursor:pointer;
+}
+.newsletter button:hover{background:var(--green-700)}
+
+/* ---------- Expanded Footer (clean, no green background) ---------- */
+.site-footer{
+  background:#fff; color:var(--text);
+  border-top:1px solid var(--line);
+}
+.site-footer .footer-container{
+  max-width:1200px; margin:0 auto; padding:2.5rem 2rem;
+  display:grid; gap:2.25rem; grid-template-columns:repeat(5, minmax(0,1fr));
+}
+.footer-col h4{
+  font-size:1rem; letter-spacing:.06em; color:#111827; margin:0 0 .9rem; font-weight:700;
+}
+.footer-col ul{list-style:none; margin:0; padding:0}
+.footer-col li{margin:.55rem 0}
+.footer-col a{
+  color:#374151; opacity:.9; transition:opacity .2s ease, color .2s ease;
+}
+.footer-col a:hover{color:var(--green-600); opacity:1}
+.footer-col p{color:#374151; margin:.35rem 0}
+
+.newsletter-col form{
+  display:grid; grid-template-columns:1fr auto; gap:.5rem; align-items:center; margin:.5rem 0 .4rem;
+}
+.newsletter-col input{
+  border:0; border-bottom:1px solid var(--line); padding:.6rem .2rem; background:transparent;
+}
+.newsletter-col button{
+  border:0; background:transparent; font-size:1.2rem; padding:.4rem .2rem; cursor:pointer; color:#111827;
+  transition:color .2s ease, transform .08s ease;
+}
+.newsletter-col button:hover{color:var(--green-600)}
+.newsletter-col p{color:var(--muted); font-size:.93rem}
+
+.social-icons{display:flex; gap:.6rem; margin-top:.5rem}
+.social-icons a{
+  width:36px; height:36px; display:flex; align-items:center; justify-content:center;
+  background:#f4f6f8; border-radius:50%; color:#111827; transition:background .2s ease, color .2s ease, transform .08s ease;
+  border:1px solid #eef1f3;
+}
+.social-icons a:hover{background:#e9edf0; color:var(--green-700); transform:translateY(-1px)}
+
+.footer-bottom{
+  border-top:1px solid var(--line);
+  text-align:center; padding:1rem 2rem; color:#6b7280; font-size:.95rem;
+}
+
+/* ---------- Responsive ---------- */
+@media (max-width: 1024px){
+  .features{grid-template-columns:repeat(2,1fr)}
+  .feature:nth-child(2){border-right:none}
+  .site-footer .footer-container{grid-template-columns:repeat(3,1fr)}
+}
+@media (max-width: 768px){
+  header{flex-wrap:wrap; padding:0.9rem 1rem}
+  nav{order:3; width:100%}
+  nav ul{justify-content:center; flex-wrap:wrap}
+  .search-cart{margin-left:auto}
+  .hero{height:56vh; min-height:360px}
+  .features{grid-template-columns:1fr}
+  .feature{border-right:none !important; border-bottom:1px solid var(--line)}
+  .feature:last-child{border-bottom:none}
+  .site-footer .footer-container{grid-template-columns:1fr 1fr}
+}
+@media (max-width: 520px){
+  .site-footer .footer-container{grid-template-columns:1fr}
+  .newsletter form{flex-direction:column}
+}
+
+.footer-bottom {
+  text-align: center;
+  padding: 1rem;
+  font-size: 0.9rem;
+  color: var(--text);
+  border-top: 1px solid var(--line);
+}
+
+.footer-bottom i {
+  color: var(--green-600);
+  margin: 0 3px;
+}
+.promos {
+  display: flex;
+  gap: 1rem;
+  justify-content: space-around;
+  margin: 1rem 0;
+}
+
+.promo {
+  padding: 0.7rem 1rem;
+  border-radius: 10px;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.promo.green { background: #e6f7e6; color: #2e7d32; }
+.promo.yellow { background: #fff8e1; color: #f57f17; }
+.promo.pink { background: #fce4ec; color: #c2185b; }
+
+.promo i { font-size: 1.1rem; }
+
+/* Social icons */
+.social-icons {
+  display: flex;
+  gap: 0.8rem;
+}
+
+.social-icons a {
+  font-size: 1.3rem;
+  color: var(--green-700);
+  transition: color 0.2s ease;
+}
+
+.social-icons a:hover {
+  color: var(--green-600);
+}
+/* Container that holds leaves during animation */
+.falling-leaves {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;  /* ensures it doesn’t block clicks */
+  overflow: hidden;
+  z-index: 9999;  /* appears above content temporarily */
+}
+
+.leaf {
+  position: absolute;
+  top: -80px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  opacity: 0.9;
+  animation: fall linear forwards;
+}
+
+/* Different size variations */
+.leaf.small  { width: 80px; height: 80px; }
+.leaf.medium { width: 120px; height: 120px; }
+.leaf.large  { width: 180px; height: 180px; }
+
+/* Keyframe animation for falling leaves */
+@keyframes fall {
+  0% {
+    transform: translateY(-60px) rotate(0deg) scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: translateY(50vh) rotate(180deg) scale(1.1);
+    opacity: 0.9;
+  }
+  100% {
+    transform: translateY(110vh) rotate(360deg) scale(0.9);
+    opacity: 0;
+  }
+}

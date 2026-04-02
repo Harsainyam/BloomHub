@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BloomHub - Shopping Cart</title>
+    <link rel="stylesheet" href="/css/cart.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body>
+    <!-- Header (same as home.ejs) -->
+    <!-- Replace the current header in cart.ejs with this improved version -->
+<header class="main-header">
+  <div class="header-container">
+      <div class="logo">
+          <img src="/images/logo.jpg" alt="BloomHub Logo" />
+          <h1>BloomHub</h1>
+      </div>
+      <nav class="main-nav">
+          <ul>
+              <li><a href="/">Home</a></li>
+              <li><a href="/categories">Categories</a></li>
+              <li><a href="/blog">Blog</a></li>
+              <li><a href="/contact">Contact</a></li>
+          </ul>
+      </nav>
+      <div class="search-cart">
+          <input type="text" placeholder="Search plants..." class="search-input" />
+          <button class="icon-btn search-btn" aria-label="Search">
+              <i class="fas fa-search"></i>
+          </button>
+          <a href="/cart" class="icon-btn cart-active" aria-label="Cart">
+              <i class="fas fa-shopping-cart"></i>
+              <span class="cart-count"><%= cartItems.length %></span>
+          </a>
+          <a href="/login" class="icon-btn" aria-label="Profile">
+              <i class="fas fa-user"></i>
+          </a>
+      </div>
+  </div>
+</header>
+
+
+    <main class="cart-container">
+        <div class="cart-header" style="margin-top: 100px;">
+            <h1><i class="fas fa-shopping-cart"></i> Your Shopping Cart</h1>
+            <p>Review your plant selections</p>
+        </div>
+
+        <% if (cartItems.length === 0) { %>
+            <div class="empty-cart">
+                <i class="fas fa-seedling empty-icon"></i>
+                <h2>Your cart is empty</h2>
+                <p>Start adding some beautiful plants to your collection!</p>
+                <a href="/" class="continue-shopping-btn">Continue Shopping</a>
+            </div>
+        <% } else { %>
+            <div class="cart-content">
+                <div class="cart-items">
+                    <% cartItems.forEach((item, index) => { %>
+                        <div class="cart-item" data-item-name="<%= item.name %>">
+                            <div class="item-image">
+                                <img src="<%= item.image %>" alt="<%= item.name %>" />
+                            </div>
+                            <div class="item-details">
+                                <h3><%= item.name %></h3>
+                                <p class="item-price">₹<%= item.price %></p>
+                            </div>
+                            <div class="quantity-controls">
+                                <button class="qty-btn minus" onclick="updateQuantity('<%= item.name %>', -1)">
+                                    <i class="fas fa-minus"></i>
+                                </button>
+                                <input type="number" class="quantity-input" value="<%= item.quantity %>" 
+                                       min="1" onchange="setQuantity('<%= item.name %>', this.value)">
+                                <button class="qty-btn plus" onclick="updateQuantity('<%= item.name %>', 1)">
+                                    <i class="fas fa-plus"></i>
+                                </button>
+                            </div>
+                            <div class="item-total">
+                                <span class="item-subtotal">₹<%= (item.price * item.quantity).toFixed(2) %></span>
+                            </div>
+                            <div class="remove-item">
+                                <button class="remove-btn" onclick="removeItem('<%= item.name %>')">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </div>
+                        </div>
+                    <% }); %>
+                </div>
+
+                <div class="cart-summary">
+                    <div class="summary-card">
+                        <h3>Order Summary</h3>
+                        <div class="summary-row">
+                            <span>Subtotal:</span>
+                            <span>₹<%= total.toFixed(2) %></span>
+                        </div>
+                        <div class="summary-row">
+                            <span>Shipping:</span>
+                            <span><%= total > 999 ? 'Free' : '₹50' %></span>
+                        </div>
+                        <hr>
+                        <div class="summary-row total">
+                            <span>Total:</span>
+                            <span>₹<%= (total > 999 ? total : total + 50).toFixed(2) %></span>
+                        </div>
+                        <a href="/checkout" class="checkout-btn" style="text-decoration: none; text-align: center; margin-left:70px ;">
+                            <i class="fas fa-credit-card" style="margin-top:20px;"></i> Proceed to Checkout
+                        </a>
+
+                        <a href="/" class="continue-shopping" style="margin-top:20px;">Continue Shopping</a>
+                    </div>
+                </div>
+            </div>
+        <% } %>
+    </main>
+
+    <!-- Footer (same as home.ejs) -->
+    <footer class="site-footer">
+        <div class="footer-container">
+            <!-- Your existing footer content -->
+        </div>
+        <div class="footer-bottom">
+            <p>© 2025 BloomHub | Crafted with <i class="fas fa-leaf"></i> for Plant Lovers</p>
+        </div>
+    </footer>
+
+    <script>
+        // Update quantity functions [web:47][web:56]
+        async function updateQuantity(itemName, change) {
+            const quantityInput = document.querySelector(`[data-item-name="${itemName}"] .quantity-input`);
+            let newQuantity = parseInt(quantityInput.value) + change;
+            
+            if (newQuantity < 1) newQuantity = 1;
+            
+            quantityInput.value = newQuantity;
+            await setQuantity(itemName, newQuantity);
+        }
+
+        async function setQuantity(itemName, quantity) {
+            try {
+                const response = await fetch('/update-cart-quantity', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ itemName, quantity })
+                });
+
+                if (response.ok) {
+                    location.reload(); // Refresh to update totals
+                }
+            } catch (error) {
+                console.error('Error updating quantity:', error);
+            }
+        }
+
+        async function removeItem(itemName) {
+            if (confirm('Remove this item from your cart?')) {
+                try {
+                    const response = await fetch('/remove-from-cart', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({ itemName })
+                    });
+
+                    if (response.ok) {
+                        location.reload();
+                    }
+                } catch (error) {
+                    console.error('Error removing item:', error);
+                }
+            }
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BloomHub - Login</title>
+  <link rel="stylesheet" href="/css/login.css">
+</head>
+<body>
+  <div class="login-container">
+    <div class="login-card">
+      <h1 class="brand-title">🌱 BloomHub</h1>
+      <h2 class="login-heading">Welcome Back</h2>
+      <p class="login-subtext">Login to manage your account and explore our plants</p>
+
+      <% if (typeof error !== 'undefined') { %>
+        <div class="error-message" style="color: red; margin-bottom: 15px; padding: 10px; background: #ffe6e6; border-radius: 5px;">
+          <%= error %>
+        </div>
+      <% } %>
+
+      <form action="/login" method="POST" class="login-form">
+        <div class="form-group">
+          <label for="email">Email Address</label>
+          <input type="email" id="email" name="email" required placeholder="you@example.com">
+        </div>
+
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input type="password" id="password" name="password" required placeholder="••••••••">
+        </div>
+
+        <button type="submit" class="btn login-btn">Login</button>
+
+        <div class="extra-links">
+          <a href="/forgot-password">Forgot Password?</a>
+          <a href="/signup">Create Account</a>
+        </div>
+      </form>
+    </div>
+  </div>
+</body>
+</html>

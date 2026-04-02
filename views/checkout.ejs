@@ -1,0 +1,610 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BloomHub - Checkout</title>
+    <link rel="stylesheet" href="/css/checkout.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <!-- Razorpay Checkout Script -->
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+    <style>
+        .payment-option {
+            display: flex;
+            align-items: center;
+            padding: 15px;
+            margin: 10px 0;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .payment-option:hover {
+            border-color: #4CAF50;
+            background-color: #f8f9fa;
+        }
+
+        .payment-option input[type="radio"] {
+            margin-right: 12px;
+        }
+
+        .payment-option i {
+            margin-right: 8px;
+            font-size: 18px;
+            color: #4CAF50;
+        }
+
+        .payment-option.selected {
+            border-color: #4CAF50;
+            background-color: #e8f5e8;
+        }
+
+        .razorpay-btn {
+            background: linear-gradient(135deg, #3395ff, #2e8ae6);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            transition: all 0.3s ease;
+        }
+
+        .razorpay-btn:hover {
+            background: linear-gradient(135deg, #2e8ae6, #2579d1);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(51, 149, 255, 0.3);
+        }
+
+        .cod-info {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 15px;
+            display: none;
+        }
+
+        .cod-info.show {
+            display: block;
+        }
+
+        .loading {
+            opacity: 0.7;
+            pointer-events: none;
+        }
+
+        .success-message {
+            background: #d4edda;
+            border: 1px solid #c3e6cb;
+            color: #155724;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 20px 0;
+            display: none;
+        }
+
+        .summary-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 15px 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        .summary-item:last-child {
+            border-bottom: none;
+        }
+
+        .summary-item img {
+            width: 60px;
+            height: 60px;
+            object-fit: cover;
+            border-radius: 8px;
+            border: 1px solid #ddd;
+        }
+
+        .item-info {
+            flex-grow: 1;
+        }
+
+        .item-info h4 {
+            margin: 0 0 5px 0;
+            font-size: 14px;
+            color: #333;
+        }
+
+        .item-info p {
+            margin: 0;
+            font-size: 12px;
+            color: #666;
+        }
+
+        .item-price {
+            font-weight: 600;
+            color: #4CAF50;
+        }
+
+        .summary-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+        }
+
+        .summary-row.total {
+            font-weight: bold;
+            font-size: 18px;
+            color: #4CAF50;
+            border-top: 2px solid #4CAF50;
+            padding-top: 15px;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Same header as cart.ejs -->
+    <header class="main-header">
+        <div class="header-container">
+            <div class="logo">
+                <img src="/images/logo.jpg" alt="BloomHub Logo" />
+                <h1>BloomHub</h1>
+            </div>
+            <nav class="main-nav">
+                <ul>
+                    <li><a href="/">Home</a></li>
+                    <li><a href="/categories">Categories</a></li>
+                    <li><a href="/blog">Blog</a></li>
+                    <li><a href="/contact">Contact</a></li>
+                </ul>
+            </nav>
+            <div class="search-cart">
+                <input type="text" placeholder="Search plants..." class="search-input" />
+                <button class="icon-btn search-btn" aria-label="Search">
+                    <i class="fas fa-search"></i>
+                </button>
+                <a href="/cart" class="icon-btn" aria-label="Cart">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span class="cart-count">
+                        <%= cartItems.reduce((sum, item)=> sum + item.quantity, 0) %>
+                    </span>
+                </a>
+                <a href="/login" class="icon-btn" aria-label="Profile">
+                    <i class="fas fa-user"></i>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <main class="checkout-container">
+        <div class="checkout-header">
+            <h1><i class="fas fa-credit-card"></i> Secure Checkout</h1>
+            <div class="checkout-steps">
+                <div class="step active">
+                    <i class="fas fa-shipping-fast"></i>
+                    <span>Shipping</span>
+                </div>
+                <div class="step">
+                    <i class="fas fa-credit-card"></i>
+                    <span>Payment</span>
+                </div>
+                <div class="step">
+                    <i class="fas fa-check-circle"></i>
+                    <span>Confirmation</span>
+                </div>
+            </div>
+        </div>
+
+        <div id="successMessage" class="success-message">
+            <i class="fas fa-check-circle"></i> Order placed successfully! Redirecting to order confirmation...
+        </div>
+
+        <div class="checkout-content">
+            <div class="checkout-form">
+                <form id="checkoutForm">
+                    <div class="form-section">
+                        <h2>Shipping Information</h2>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="firstName">First Name</label>
+                                <input type="text" id="firstName" name="firstName" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="lastName">Last Name</label>
+                                <input type="text" id="lastName" name="lastName" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email Address</label>
+                            <input type="email" id="email" name="email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="phone">Phone Number</label>
+                            <input type="tel" id="phone" name="phone" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="address">Street Address</label>
+                            <input type="text" id="address" name="address" required>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="city">City</label>
+                                <input type="text" id="city" name="city" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="state">State</label>
+                                <input type="text" id="state" name="state" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="pincode">PIN Code</label>
+                                <input type="text" id="pincode" name="pincode" pattern="[0-9]{6}" required>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-section">
+                        <h2>Payment Method</h2>
+                        <div class="payment-methods">
+                            <label class="payment-option" for="razorpay">
+                                <input type="radio" id="razorpay" name="paymentMethod" value="razorpay" checked>
+                                <i class="fas fa-credit-card" style="color: #3395ff;"></i>
+                                Pay with Razorpay (UPI, Cards, Net Banking)
+                            </label>
+                            <label class="payment-option" for="cod">
+                                <input type="radio" id="cod" name="paymentMethod" value="cod">
+                                <i class="fas fa-money-bill-wave" style="color: #28a745;"></i>
+                                Cash on Delivery
+                            </label>
+                        </div>
+
+                        <div class="cod-info" id="codInfo">
+                            <p><strong>Cash on Delivery:</strong> Pay when your order is delivered to your doorstep.
+                                Additional COD charges may apply for orders below ₹999.</p>
+                        </div>
+                    </div>
+
+                    <button type="button" id="placeOrderBtn" class="razorpay-btn">
+                        <i class="fas fa-lock"></i>
+                        <span id="btnText">Place Order Securely</span>
+                    </button>
+                </form>
+            </div>
+
+            <div class="order-summary">
+                <div class="summary-card">
+                    <h3>Order Summary</h3>
+                    <!-- Dynamic order items from server -->
+                    <% cartItems.forEach(function(item) { %>
+                        <div class="summary-item">
+                            <img src="<%= item.image || '/images/default-plant.jpg' %>" alt="<%= item.name %>" />
+                            <div class="item-info">
+                                <h4>
+                                    <%= item.name %>
+                                </h4>
+                                <p>Qty: <%= item.quantity %>
+                                </p>
+                            </div>
+                            <span class="item-price">₹<%= (item.price * item.quantity).toFixed(2) %></span>
+                        </div>
+                        <% }); %>
+
+                            <hr>
+                            <div class="summary-row">
+                                <span>Subtotal:</span>
+                                <span id="subtotal">₹<%= total.toFixed(2) %></span>
+                            </div>
+                            <div class="summary-row">
+                                <span>Shipping:</span>
+                                <span id="shipping">
+                                    <%= total> 999 ? 'Free' : '₹50.00' %>
+                                </span>
+                            </div>
+                            <div class="summary-row total">
+                                <span>Total:</span>
+                                <span id="total">₹<%= (total + (total> 999 ? 0 : 50)).toFixed(2) %></span>
+                            </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        // Configuration - Your Razorpay Key ID
+        const RAZORPAY_KEY_ID = 'rzp_live_RKYyMHf2d2O49z';
+
+        // Payment method toggle
+        document.querySelectorAll('input[name="paymentMethod"]').forEach(radio => {
+            radio.addEventListener('change', function () {
+                const codInfo = document.getElementById('codInfo');
+                const placeOrderBtn = document.getElementById('placeOrderBtn');
+                const btnText = document.getElementById('btnText');
+
+                // Update payment option styling
+                document.querySelectorAll('.payment-option').forEach(option => {
+                    option.classList.remove('selected');
+                });
+                this.closest('.payment-option').classList.add('selected');
+
+                if (this.value === 'cod') {
+                    codInfo.classList.add('show');
+                    btnText.textContent = 'Place Order (COD)';
+                    placeOrderBtn.style.background = 'linear-gradient(135deg, #28a745, #218838)';
+                } else {
+                    codInfo.classList.remove('show');
+                    btnText.textContent = 'Pay Now with Razorpay';
+                    placeOrderBtn.style.background = 'linear-gradient(135deg, #3395ff, #2e8ae6)';
+                }
+            });
+        });
+
+        // Initialize selected payment method
+        document.getElementById('razorpay').closest('.payment-option').classList.add('selected');
+
+        // Place Order Button Click Handler
+        document.getElementById('placeOrderBtn').addEventListener('click', function (e) {
+            e.preventDefault();
+
+            const form = document.getElementById('checkoutForm');
+
+            // Validate form
+            if (!form.checkValidity()) {
+                form.reportValidity();
+                return;
+            }
+
+            const paymentMethod = document.querySelector('input[name="paymentMethod"]:checked').value;
+
+            if (paymentMethod === 'cod') {
+                processCODOrder();
+            } else {
+                processRazorpayPayment();
+            }
+        });
+
+        function processCODOrder() {
+            console.log('Processing COD order...');
+
+            // Show loading state
+            const btn = document.getElementById('placeOrderBtn');
+            const btnText = document.getElementById('btnText');
+            btn.classList.add('loading');
+            btnText.textContent = 'Processing Order...';
+
+            // Collect form data
+            const formData = collectFormData();
+            formData.paymentMethod = 'cod';
+
+            console.log('COD Form data:', formData);
+
+            // Send to server
+            fetch('/process-checkout', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                credentials: 'include',   // <--- ensure session is sent
+                body: JSON.stringify(formData)
+            })
+                .then(response => {
+                    console.log('COD Response status:', response.status);
+                    return response.json();
+                })
+                .then(data => {
+                    console.log('COD Response data:', data);
+                    if (data.success) {
+                        showSuccessMessage();
+                        setTimeout(() => {
+                            window.location.href = `/order-confirmation/${data.orderId}`;
+                        }, 2000);
+                    } else {
+                        throw new Error(data.message || 'Order processing failed');
+                    }
+                })
+                .catch(error => {
+                    console.error('COD Error:', error);
+                    alert('Order processing failed: ' + error.message);
+                })
+                .finally(() => {
+                    btn.classList.remove('loading');
+                    btnText.textContent = 'Place Order (COD)';
+                });
+        }
+
+        function processRazorpayPayment() {
+            console.log('Processing Razorpay payment...');
+
+            // Show loading state
+            const btn = document.getElementById('placeOrderBtn');
+            const btnText = document.getElementById('btnText');
+            btn.classList.add('loading');
+            btnText.textContent = 'Initializing Payment...';
+
+            // Collect form data
+            const formData = collectFormData();
+            console.log('Razorpay form data:', formData);
+
+            // Create order on server first
+            fetch('/create-razorpay-order', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                credentials: 'include',   // <--- this is critical
+                body: JSON.stringify(formData)
+            })
+
+                .then(response => {
+                    console.log('Razorpay order response status:', response.status);
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! status: ${response.status}`);
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    console.log('Razorpay order response data:', data);
+                    if (data.success) {
+                        initiateRazorpayPayment(data.order, formData);
+                    } else {
+                        throw new Error(data.message || 'Order creation failed');
+                    }
+                })
+                .catch(error => {
+                    console.error('Razorpay order creation error:', error);
+                    alert('Payment initialization failed: ' + error.message);
+                })
+                .finally(() => {
+                    btn.classList.remove('loading');
+                    btnText.textContent = 'Pay Now with Razorpay';
+                });
+        }
+
+        function initiateRazorpayPayment(order, customerData) {
+            console.log('Initiating Razorpay with order:', order);
+
+            const options = {
+                key: RAZORPAY_KEY_ID,
+                amount: order.amount,
+                currency: order.currency,
+                name: 'BloomHub',
+                description: 'Plant Purchase',
+                image: '/images/logo.jpg',
+                order_id: order.id,
+                prefill: {
+                    name: `${customerData.firstName} ${customerData.lastName}`,
+                    email: customerData.email,
+                    contact: customerData.phone
+                },
+                notes: {
+                    address: customerData.address,
+                    city: customerData.city,
+                    state: customerData.state,
+                    pincode: customerData.pincode
+                },
+                theme: {
+                    color: '#4CAF50'
+                },
+                handler: function (response) {
+                    console.log('Payment successful:', response);
+                    verifyPayment(response, customerData);
+                },
+                modal: {
+                    ondismiss: function () {
+                        console.log('Payment modal dismissed by user');
+                        alert('Payment was cancelled. Please try again if you wish to complete your order.');
+                    }
+                }
+            };
+
+            try {
+                const razorpay = new Razorpay(options);
+
+                razorpay.on('payment.failed', function (response) {
+                    console.error('Payment failed:', response.error);
+                    alert('Payment failed: ' + response.error.description);
+                });
+
+                razorpay.open();
+            } catch (error) {
+                console.error('Error opening Razorpay:', error);
+                alert('Error initializing payment. Please try again.');
+            }
+        }
+
+        function verifyPayment(paymentResponse, customerData) {
+            console.log('Verifying payment:', paymentResponse);
+
+            // Show loading state
+            const btn = document.getElementById('placeOrderBtn');
+            const btnText = document.getElementById('btnText');
+            btn.classList.add('loading');
+            btnText.textContent = 'Verifying Payment...';
+
+            const verificationData = {
+                ...customerData,
+                razorpay_payment_id: paymentResponse.razorpay_payment_id,
+                razorpay_order_id: paymentResponse.razorpay_order_id,
+                razorpay_signature: paymentResponse.razorpay_signature
+            };
+
+            console.log('Sending verification data:', verificationData);
+
+            fetch('/verify-payment', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                credentials: 'include',
+                body: JSON.stringify(verificationData)
+            })
+                .then(response => {
+                    console.log('Payment verification response status:', response.status);
+                    return response.json();
+                })
+                .then(data => {
+                    console.log('Payment verification response data:', data);
+                    if (data.success) {
+                        showSuccessMessage();
+                        setTimeout(() => {
+                            window.location.href = `/order-confirmation/${data.orderId}`;
+                        }, 2000);
+                    } else {
+                        throw new Error(data.message || 'Payment verification failed');
+                    }
+                })
+                .catch(error => {
+                    console.error('Payment verification error:', error);
+                    alert('Payment verification failed: ' + error.message + '. Please contact support with payment ID: ' + paymentResponse.razorpay_payment_id);
+                })
+                .finally(() => {
+                    btn.classList.remove('loading');
+                    btnText.textContent = 'Pay Now with Razorpay';
+                });
+        }
+
+        function collectFormData() {
+            return {
+                firstName: document.getElementById('firstName').value.trim(),
+                lastName: document.getElementById('lastName').value.trim(),
+                email: document.getElementById('email').value.trim(),
+                phone: document.getElementById('phone').value.trim(),
+                address: document.getElementById('address').value.trim(),
+                city: document.getElementById('city').value.trim(),
+                state: document.getElementById('state').value.trim(),
+                pincode: document.getElementById('pincode').value.trim()
+            };
+        }
+
+        function showSuccessMessage() {
+            document.getElementById('successMessage').style.display = 'block';
+            document.querySelector('.checkout-content').style.opacity = '0.7';
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Add form validation styling
+        document.querySelectorAll('input[required]').forEach(input => {
+            input.addEventListener('invalid', function () {
+                this.style.borderColor = '#dc3545';
+            });
+
+            input.addEventListener('input', function () {
+                if (this.validity.valid) {
+                    this.style.borderColor = '#28a745';
+                } else {
+                    this.style.borderColor = '#dc3545';
+                }
+            });
+        });
+
+        // Console log for debugging
+        console.log('Checkout page loaded');
+        console.log('Razorpay Key ID:', RAZORPAY_KEY_ID);
+        console.log('Cart items:', "<%= JSON.stringify(cartItems) %>");
+        console.log('Total amount:', "<%= (total + (total > 999 ? 0 : 50)).toFixed(2) %>");
+    </script>
+</body>
+
+</html>

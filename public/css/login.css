@@ -1,0 +1,121 @@
+:root {
+  --green-accent: #2f855a;
+  --green-hover: #276749;
+  --background: #f8fafc;
+  --surface: #ffffff;
+  --border: #d1d5db;
+  --text: #1f2937;
+  --muted: #6b7280;
+  --shadow: 0 6px 12px rgba(0,0,0,0.08);
+  --radius: 8px;
+}
+
+body {
+  font-family: "Segoe UI", sans-serif;
+  background: var(--background);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  margin: 0;
+}
+
+.login-container {
+  width: 100%;
+  max-width: 500px; /* widened */
+  padding: 2rem;
+}
+
+.login-card {
+  background: var(--surface);
+  padding: 2.5rem;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  border: 1px solid var(--border);
+  text-align: center;
+}
+
+.brand-title {
+  font-size: 1.6rem;
+  color: var(--green-accent);
+  margin-bottom: 0.25rem;
+  font-weight: 700;
+}
+
+.login-heading {
+  font-size: 1.3rem;
+  margin: 1rem 0 0.5rem;
+  color: var(--text);
+  font-weight: 600;
+}
+
+.login-subtext {
+  color: var(--muted);
+  margin-bottom: 2rem;
+  font-size: 0.95rem;
+}
+
+.login-form {
+  text-align: left;
+}
+
+.form-group {
+  margin-bottom: 1.2rem;
+}
+
+.form-group label {
+  display: block;
+  font-size: 0.9rem;
+  margin-bottom: 0.4rem;
+  color: var(--text);
+  font-weight: 500;
+}
+
+.form-group input {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  font-size: 1rem;
+  color: var(--text);
+}
+
+.form-group input:focus {
+  outline: none;
+  border-color: var(--green-accent);
+  box-shadow: 0 0 0 2px rgba(47, 133, 90, 0.2);
+}
+
+.btn.login-btn {
+  width: 100%;
+  padding: 1rem;
+  background: var(--green-accent);
+  color: white;
+  font-weight: 600;
+  font-size: 1rem;
+  border: none;
+  border-radius: var(--radius);
+  cursor: pointer;
+  transition: background 0.2s ease;
+  margin-top: 0.5rem;
+}
+
+.btn.login-btn:hover {
+  background: var(--green-hover);
+}
+
+.extra-links {
+  margin-top: 1.5rem;
+  display: flex;
+  justify-content: space-between;
+}
+
+.extra-links a {
+  font-size: 0.9rem;
+  color: var(--green-accent);
+  text-decoration: none;
+}
+
+.extra-links a:hover {
+  text-decoration: underline;
+}

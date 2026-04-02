@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BloomHub - Signup</title>
+  <link rel="stylesheet" href="/css/signup.css">
+</head>
+<body>
+  <div class="signup-container">
+    <div class="signup-card">
+      <h1 class="brand-title">🌱 BloomHub</h1>
+      <h2 class="signup-heading">Create Your Account</h2>
+      <p class="signup-subtext">Join us to start your green journey</p>
+
+      <% if (typeof error !== 'undefined') { %>
+        <div class="error-message" style="color: red; margin-bottom: 15px; padding: 10px; background: #ffe6e6; border-radius: 5px;">
+          <%= error %>
+        </div>
+      <% } %>
+
+      <form action="/signup" method="POST" class="signup-form">
+        <div class="form-group">
+          <label for="name">Full Name</label>
+          <input type="text" id="name" name="name" required placeholder="John Doe">
+        </div>
+
+        <div class="form-group">
+          <label for="email">Email Address</label>
+          <input type="email" id="email" name="email" required placeholder="you@example.com">
+        </div>
+
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input type="password" id="password" name="password" required placeholder="••••••••">
+        </div>
+
+        <div class="form-group">
+          <label for="confirm-password">Confirm Password</label>
+          <input type="password" id="confirm-password" name="confirm-password" required placeholder="••••••••">
+        </div>
+
+        <button type="submit" class="btn signup-btn">Sign Up</button>
+
+        <div class="extra-links">
+          <a href="/login">Already have an account? Login</a>
+        </div>
+      </form>
+    </div>
+  </div>
+</body>
+</html>

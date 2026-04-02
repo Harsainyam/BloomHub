@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>WebSocket Test - BloomHub</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      max-width: 800px;
+      margin: 50px auto;
+      padding: 20px;
+      background: #f5f5f5;
+    }
+    .container {
+      background: white;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+    .status {
+      padding: 10px;
+      margin: 10px 0;
+      border-radius: 5px;
+      font-weight: bold;
+    }
+    .connected {
+      background: #d4edda;
+      color: #155724;
+    }
+    .disconnected {
+      background: #f8d7da;
+      color: #721c24;
+    }
+    .message {
+      background: #e7f3ff;
+      padding: 10px;
+      margin: 10px 0;
+      border-left: 4px solid #2196F3;
+      border-radius: 4px;
+    }
+    button {
+      background: #4a7c59;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 5px;
+      cursor: pointer;
+      margin: 5px;
+    }
+    button:hover {
+      background: #3d6b4a;
+    }
+    #messages {
+      max-height: 400px;
+      overflow-y: auto;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>🔌 BloomHub WebSocket Test</h1>
+    
+    <div id="status" class="status disconnected">
+      ❌ Disconnected
+    </div>
+
+    <div>
+      <button onclick="connect()">Connect</button>
+      <button onclick="disconnect()">Disconnect</button>
+      <button onclick="sendPing()">Send Ping</button>
+      <button onclick="clearMessages()">Clear Messages</button>
+    </div>
+
+    <div id="messages"></div>
+  </div>
+
+  <script>
+    let ws = null;
+
+    function addMessage(type, content) {
+      const messagesDiv = document.getElementById('messages');
+      const messageDiv = document.createElement('div');
+      messageDiv.className = 'message';
+      messageDiv.innerHTML = `<strong>[${type}]</strong> ${new Date().toLocaleTimeString()}<br>${JSON.stringify(content, null, 2)}`;
+      messagesDiv.appendChild(messageDiv);
+      messagesDiv.scrollTop = messagesDiv.scrollHeight;
+    }
+
+    function updateStatus(connected) {
+      const statusDiv = document.getElementById('status');
+      if (connected) {
+        statusDiv.className = 'status connected';
+        statusDiv.textContent = '✅ Connected';
+      } else {
+        statusDiv.className = 'status disconnected';
+        statusDiv.textContent = '❌ Disconnected';
+      }
+    }
+
+    function connect() {
+      if (ws && ws.readyState === WebSocket.OPEN) {
+        addMessage('INFO', 'Already connected');
+        return;
+      }
+
+      ws = new WebSocket('ws://localhost:3000');
+
+      ws.onopen = () => {
+        updateStatus(true);
+        addMessage('CONNECTED', 'WebSocket connection established');
+      };
+
+      ws.onmessage = (event) => {
+        const data = JSON.parse(event.data);
+        addMessage('RECEIVED', data);
+      };
+
+      ws.onclose = () => {
+        updateStatus(false);
+        addMessage('DISCONNECTED', 'WebSocket connection closed');
+      };
+
+      ws.onerror = (error) => {
+        addMessage('ERROR', 'WebSocket error occurred');
+        console.error(error);
+      };
+    }
+
+    function disconnect() {
+      if (ws) {
+        ws.close();
+        ws = null;
+      }
+    }
+
+    function sendPing() {
+      if (!ws || ws.readyState !== WebSocket.OPEN) {
+        alert('Not connected!');
+        return;
+      }
+
+      const message = { type: 'PING', timestamp: Date.now() };
+      ws.send(JSON.stringify(message));
+      addMessage('SENT', message);
+    }
+
+    function clearMessages() {
+      document.getElementById('messages').innerHTML = '';
+    }
+
+    // Auto-connect on page load
+    window.onload = () => {
+      connect();
+    };
+  </script>
+</body>
+</html>

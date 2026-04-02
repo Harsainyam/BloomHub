@@ -1,0 +1,24 @@
+{
+  "name": "bloomhub---hub-for-plant-enthusiasts",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "bcryptjs": "^3.0.2",
+    "body-parser": "^2.2.0",
+    "dotenv": "^17.2.2",
+    "ejs": "^3.1.10",
+    "express": "^5.1.0",
+    "express-session": "^1.18.2",
+    "jsonwebtoken": "^9.0.2",
+    "mongoose": "^8.19.4",
+    "razorpay": "^2.9.6",
+    "redis": "^5.10.0",
+    "ws": "^8.18.3"
+  }
+}

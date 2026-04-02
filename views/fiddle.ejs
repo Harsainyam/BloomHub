@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>BloomHub</title>
+
+    <!-- SEO -->
+    <meta name="description" content="BloomHub - Buy indoor & outdoor plants, pots, seeds, and gardening essentials.">
+    <meta name="keywords" content="plants, nursery, gardening, indoor plants, outdoor plants, pots, seeds">
+    <meta name="author" content="BloomHub">
+    <link rel="icon" href="/images/favicon.ico" />
+
+    <!-- Fonts & Styles -->
+    <link rel="stylesheet" href="/css/fiddle.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="logo">
+            <img src="/images/logo.jpg" alt="BloomHub Logo" />
+            <h1>BloomHub</h1>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="/">Home</a></li>
+                <li><a href="/shop">Shop</a></li>
+                <li><a href="/categories">Categories</a></li>
+                <li><a href="/blog">Blog</a></li>
+                <li><a href="/contact">Contact</a></li>
+            </ul>
+        </nav>
+        <div class="search-cart">
+            <input type="text" placeholder="Search plants..." />
+            <button class="icon-btn" aria-label="Search"><i class="fas fa-search"></i></button>
+            <button class="icon-btn" aria-label="Cart"><i class="fas fa-shopping-cart"></i></button>
+            <a href="/login" class="icon-btn" aria-label="Profile"><i class="fas fa-user"></i></a>
+        </div>
+    </header>
+
+    <main class="product-detail">
+        <!-- Top section: image on left, details on right -->
+        <section class="product-overview">
+            <div class="product-image">
+                <img src="/images/indoor-images/fiddleleaffig.jpg" alt="Fiddle Leaf Fig Plant" />
+            </div>
+            <div class="product-info">
+                <h6 class="product-name">Ficus lyrata</h6>
+                <h1 class="product-title">Fiddle Leaf Fig</h1>
+                <small>★★★★ (567)</small>
+                <p class="product-price">₹799</p>
+
+                <!-- Options -->
+                <form class="product-options">
+
+                    <!-- Size Selection -->
+                    <label>Plant height & pot size |
+                       <!-- Info Button -->
+<button type="button" class="info-btn" onclick="toggleInfo()">  Size Guide</button>
+
+<!-- Hidden Info Message -->
+<div id="info-message" class="info-message">
+  Plant sizes are approximate and include the depth of the plant pot and roots, not just the height from the top of the soil.
+</div>
+
+                    </label>
+                    <div class="option-group">
+                        <input type="radio" id="size-small" name="size" value="small">
+                        <label for="size-small">Small<br>20–30 cm</label>
+
+                        <input type="radio" id="size-medium" name="size" value="medium" checked>
+                        <label for="size-medium">Medium<br>30–40 cm</label>
+
+                        <input type="radio" id="size-large" name="size" value="large">
+                        <label for="size-large">Large<br>40–50 cm</label>
+                    </div>
+
+                    <!-- Pot/Planter Selection -->
+                    <label>Choose Pot/Planter:</label>
+                    <div class="option-group">
+                        <input type="radio" id="pot-plastic" name="pot" value="plastic">
+                        <label for="pot-plastic">Plastic Pot</label>
+
+                        <input type="radio" id="pot-ceramic" name="pot" value="ceramic">
+                        <label for="pot-ceramic">Ceramic Planter</label>
+
+                        <input type="radio" id="pot-eco" name="pot" value="eco">
+                        <label for="pot-eco">Eco-Friendly Planter</label>
+                    </div>
+
+                    <!-- Freshness Guarantee -->
+<div class="freshness-guarantee">
+  🌱 14 days freshness guaranteed
+</div>
+
+                    <!-- Action Buttons -->
+                    <div class="product-actions">
+                        <button type="button" class="btn add-to-cart">Add to Cart</button>
+                        <button type="button" class="btn wishlist">♡ Add to Wishlist</button>
+                    </div>
+                </form>
+            </div>
+        </section>
+
+        <!-- Scroll down section: Description -->
+        <section class="product-description">
+            <h2>About the Plant</h2>
+            <p>
+                The Fiddle Leaf Fig is a popular indoor plant known for its large, glossy, violin-shaped leaves.
+                It makes a bold statement in any home or office space and is loved for its modern, stylish appeal.
+            </p>
+
+            <h2>Product Information</h2>
+            <table class="product-info-table">
+                <tr><th>Average Plant Height</th><td>2 – 4 feet</td></tr>
+                <tr><th>Internal Pot Diameter</th><td>12 – 15 cm</td></tr>
+                <tr><th>Botanical Name</th><td>Ficus lyrata</td></tr>
+                <tr><th>Other Names</th><td>Fiddle Leaf Fig</td></tr>
+                <tr><th>Pet Friendly</th><td>Not pet friendly</td></tr>
+                <tr><th>Air Purifying</th><td>Yes, helps improve indoor air quality</td></tr>
+                <tr><th>Water Requirements</th><td>Water when top 2 inches of soil feel dry</td></tr>
+                <tr><th>Light Requirements</th><td>Bright, indirect sunlight</td></tr>
+            </table>
+
+            <h2>Care Instructions</h2>
+            <ul>
+                <li>Light: Place in bright, indirect light for best growth.</li>
+                <li>Water: Water when the top 2 inches of soil feel dry.</li>
+                <li>Humidity: Prefers higher humidity levels, mist occasionally.</li>
+                <li>Fertilizer: Feed monthly during growing season with a balanced fertilizer.</li>
+                <li>Repotting: Repot every 1–2 years into a slightly larger container.</li>
+            </ul>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+        <div class="footer-container">
+            <div class="footer-col">
+                <h4>ABOUT US</h4>
+                <ul>
+                    <li><a href="#">Our Story</a></li>
+                    <li><a href="#">Contact Us</a></li>
+                    <li><a href="#">Careers</a></li>
+                    <li><a href="#">Locate Stores</a></li>
+                    <li><a href="#">Own Grown</a></li>
+                    <li><a href="#">Garden Services & Maintenance</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>CUSTOMER CARE</h4>
+                <ul>
+                    <li><a href="/quiz">Take The Plant Quiz</a></li>
+                    <li><a href="#">Track Order</a></li>
+                    <li><a href="#">Shipping Policy</a></li>
+                    <li><a href="#">Terms and Conditions</a></li>
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="#">FAQs</a></li>
+                    <li><a href="#">Refund Policy</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>OFFERS & REWARDS</h4>
+                <ul>
+                    <li><a href="#">Plant Parent Rewards Club</a></li>
+                    <li><a href="#">BloomHub Coupons</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>GET IN TOUCH</h4>
+                <p>WhatsApp us at: <a href="https://chat.whatsapp.com/Gg2OTYdk4zp0GN1eAxr8oS">9815517131</a></p>
+                <p>Call: <a href="tel:+91987654321">+91 91987654321</a></p>
+                <p>Email: <a href="mailto:support@bloomhub.com">support@bloomhub.com</a></p>
+            </div>
+            <div class="footer-col newsletter-col">
+                <h4>SIGN UP FOR OUR NEWSLETTER</h4>
+                <form>
+                    <input type="email" placeholder="Enter email address" required />
+                    <button type="submit">→</button>
+                </form>
+                <p>For plant care tips, our featured plant of the week, exclusive offers and discounts</p>
+                <div class="social-icons">
+                    <a href="#"><i class="fas fa-leaf"></i></a>
+                    <a href="#"><i class="fab fa-facebook"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-linkedin"></i></a>
+                    <a href="#"><i class="fab fa-youtube"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© 2025 BloomHub | Crafted with <i class="fas fa-leaf"></i> for Plant Lovers</p>
+        </div>
+    </footer>
+</body>
+</html>
+<script>
+  function toggleInfo() {
+    const msg = document.getElementById("info-message");
+    msg.style.display = (msg.style.display === "block") ? "none" : "block";
+  }
+</script>

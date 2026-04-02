@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>BloomHub </title>
+
+    <!-- SEO -->
+    <meta name="description" content="BloomHub - Buy indoor & outdoor plants, pots, seeds, and gardening essentials.">
+    <meta name="keywords" content="plants, nursery, gardening, indoor plants, outdoor plants, pots, seeds">
+    <meta name="author" content="BloomHub">
+    <link rel="icon" href="< %= '/images/favicon.ico' %>" />
+
+    <!-- Fonts & Styles -->
+    <link rel="stylesheet" href="<%= '/css/home.css' %>" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+</head>
+
+<body>
+    <!-- Header -->
+    <header>
+        <div class="logo">
+            <img src="<%= '/images/logo.jpg' %>" alt="BloomHub Logo" />
+            <h1>BloomHub</h1>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="/">Home</a></li>
+                <li><a href="/categories" class="view-all-btn">View All Categories →</a></li>
+                <li><a href="/blog">Blog</a></li>
+                <li><a href="/contact">Contact</a></li>
+            
+                <% if (user) { %>
+                    <li>
+                        <span style="
+                            background: linear-gradient(135deg, #4a7c59, #6cb76d);
+                            color: white;
+                            padding: 8px 16px;
+                            border-radius: 20px;
+                            font-weight: 600;
+                            font-size: 14px;
+                            box-shadow: 0 3px 10px rgba(74, 124, 89, 0.3);
+                            display: inline-flex;
+                            align-items: center;
+                            gap: 6px;
+                            animation: welcomeFade 0.6s ease-in-out;
+                            border: 2px solid rgba(255, 255, 255, 0.2);
+                            transition: all 0.3s ease;
+                        " 
+                        onmouseover="this.style.transform='scale(1.05)'; this.style.boxShadow='0 5px 15px rgba(74, 124, 89, 0.4)'"
+                        onmouseout="this.style.transform='scale(1)'; this.style.boxShadow='0 3px 10px rgba(74, 124, 89, 0.3)'">
+                            👋 Welcome, <%= user.name %>!
+                        </span>
+                    </li>
+                    
+                    <style>
+                        @keyframes welcomeFade {
+                            0% { 
+                                opacity: 0; 
+                                transform: translateY(-10px); 
+                            }
+                            100% { 
+                                opacity: 1; 
+                                transform: translateY(0); 
+                            }
+                        }
+                    </style>
+                    
+                    <li><a href="/logout">Logout</a></li>
+                <% } else { %>
+                    <li><a href="/login">Login</a></li>
+                    <li><a href="/signup">Signup</a></li>
+                <% } %>
+            </ul>
+        </nav>
+          
+        <div class="search-cart">
+            <input type="text" placeholder="Search plants..." />
+            <button class="icon-btn" aria-label="Search"><i class="fas fa-search"></i></button>
+            <a href="/cart" class="icon-btn cart-link" aria-label="Cart">
+                <i class="fas fa-shopping-cart"></i>
+                <span class="cart-count" id="cart-count">0</span>
+            </a>
+            <!-- Fixed Profile Link -->
+            <% if (user) { %>
+                <a href="/logout" class="icon-btn" aria-label="Profile"><i class="fas fa-user"></i></a>
+            <% } else { %>
+                <a href="/login" class="icon-btn" aria-label="Profile"><i class="fas fa-user"></i></a>
+            <% } %>
+        </div>
+    </header>
+    
+
+    <main>
+        <!-- Hero Section -->
+        <section class="hero"
+            style="background-image: url('https://images.unsplash.com/photo-1501004318641-b39e6451bec6')">
+            <div class="overlay">
+                <h2>Bring Nature Home</h2>
+                <p>Indoor plants, garden essentials, and everything green.</p>
+                <!-- <button class="cta-btn">Shop Now</button> -->
+            </div>
+        </section>
+
+        <!-- falling leaves -->
+        <div class="falling-leaves"></div>
+
+        <!-- ✅ Feature Highlights (just below slideshow) -->
+        <section class="features">
+            <div class="feature">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" width="40"
+                    height="40">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M3 7h13v10H3zM16 10h4l1 3v4h-5zM6 20a2 2 0 100-4 2 2 0 000 4zm10 0a2 2 0 100-4 2 2 0 000 4z" />
+                </svg>
+                <p><strong>Free Shipping</strong> ₹999+</p>
+            </div>
+
+            <div class="feature">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" width="40"
+                    height="40">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M4 4v6h6M20 20v-6h-6M5 19a9 9 0 0014-14l1.5-1.5M3.5 3.5L5 5" />
+                </svg>
+                <p><strong>14 Days</strong> Replacement if damaged*</p>
+            </div>
+
+            <div class="feature">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" width="40"
+                    height="40">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M12 20c-4-2-6-6-6-10a6 6 0 0112 0c0 4-2 8-6 10zm0-8v-4" />
+                </svg>
+                <p><strong>Expert Care Guidance</strong> from Plant Doctors</p>
+            </div>
+
+            <div class="feature">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" width="40"
+                    height="40">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
+                </svg>
+                <p><strong>10M+</strong> Trusted Plant Lovers</p>
+            </div>
+        </section>
+
+      
+
+        <!-- Best Sellers -->
+        <section class="best-sellers">
+            <h3>Best Selling Plants</h3>
+            <div class="grid">
+                <article class="product">
+                    <img src="<%= '/images/fiddleleavefig.jpg' %>" alt="Fiddle Leaf Fig" />
+                    <a href="/fiddle"><h4>Fiddle Leaf Fig</h4></a>
+                    <p>₹799</p>
+                    <button onclick="addToCart('Fiddle Leaf Fig', 799, '/images/fiddleleavefig.jpg')">Add to Cart</button>
+                </article>
+                
+                <article class="product">
+                    <img src="<%= '/images/aloevera.jpg' %>" alt="Aloe Vera" />
+                    <h4>Aloe Vera</h4>
+                    <p>₹499</p>
+                    <button onclick="addToCart('Aloe Vera', 499, '/images/aloevera.jpg')">Add to Cart</button>
+                </article>
+                
+                <article class="product">
+                    <img src="<%= '/images/peacelily.jpg' %>" alt="Peace Lily" />
+                    <h4>Peace Lily</h4>
+                    <p>₹699</p>
+                    <button onclick="addToCart('Peace Lily', 699, '/images/peacelily.jpg')">Add to Cart</button>
+                </article>
+                
+                <article class="product">
+                    <img src="<%= '/images/snakeplant.jpg' %>" alt="Snake Plant" />
+                    <h4>Snake Plant</h4>
+                    <p>₹599</p>
+                    <button onclick="addToCart('Snake Plant', 599, '/images/snakeplant.jpg')">Add to Cart</button>
+                </article>
+            </div>
+        </section>
+
+        <!-- Promo Banners -->
+        <section class="promos">
+            <div class="promo green"><i class="fas fa-cloud-showers-heavy"></i> Monsoon Special - 20% off indoor plants
+            </div>
+            <div class="promo yellow"><i class="fas fa-seedling"></i> Gardening Kits - Everything you need</div>
+            <div class="promo pink"><i class="fas fa-book-open"></i> Plant Care Tips - Free guide with purchase</div>
+        </section>
+
+        <!-- Blog Section -->
+        <section class="blog">
+            <h3>Gardening Guides</h3>
+            <div class="grid">
+                <article>
+                    <a href="/blog/succulent-care">
+                        <img src="<%= '/images/care.jpg' %>" alt="Succulent Care Guide" />
+                        <h4>How to care for succulents</h4>
+                        <p>Learn the basics of succulent care and tips to keep them thriving.</p>
+                    </a>
+                </article>
+                <article>
+                    <a href="/blog/indoor-plants">
+                        <img src="<%= '/images/tenplants.jpg' %>" alt="Indoor Plants Guide" />
+                        <h4>10 Best Indoor Plants</h4>
+                        <p>These plants not only look great but also purify the air in your home.</p>
+                    </a>
+                </article>
+                <article>
+                    <a href="/blog/gardening-tools">
+                        <img src="<%= '/images/gardeningtools.jpg' %>" alt="Gardening Tools" />
+                        <h4>Essential Gardening Tools</h4>
+                        <p>Must-have tools to make your gardening journey easier and fun.</p>
+                    </a>
+                </article>
+            </div>
+        </section>
+
+        <!-- Newsletter -->
+        <section class="newsletter">
+            <h3>Join Our Green Community</h3>
+            <p>Get gardening tips and plant care guides straight to your inbox.</p>
+            <form action="/subscribe" method="post">
+                <input type="email" name="email" placeholder="Your email" required />
+                <button type="submit">Subscribe</button>
+            </form>
+        </section>
+    </main>
+
+    <!-- ✅ Expanded Footer -->
+    <footer class="site-footer">
+        <div class="footer-container">
+            <div class="footer-col">
+                <h4>ABOUT US</h4>
+                <ul>
+                    <li><a href="#">Our Story</< /li>
+                    <li><a href="#">Contact Us</a></li>
+                    <li><a href="#">Careers</a></li>
+                    <li><a href="#">Locate Stores</a></li>
+                    <li><a href="#">Own Grown</a></li>
+                    <li><a href="#">Garden Services & Maintenance</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-col">
+                <h4>CUSTOMER CARE</h4>
+                <ul>
+                    <li><a href="/quiz">Take The Plant Quiz</a></li>
+                    <li><a href="#">Track Order</a></li>
+                    <li><a href="#">Shipping Policy</a></li>
+                    <li><a href="#">Terms and Conditions</a></li>
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="#">FAQs</a></li>
+                    <li><a href="#">Refund Policy</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-col">
+                <h4>OFFERS & REWARDS</h4>
+                <ul>
+                    <li><a href="#">Plant Parent Rewards Club</a></li>
+                    <li><a href="#">BloomHub Coupons</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-col">
+                <h4>GET IN TOUCH</h4>
+                <p>WhatsApp us at: <a href="https://chat.whatsapp.com/Gg2OTYdk4zp0GN1eAxr8oS">9815517131</a></p>
+                <p>Call: <a href="tel:+91987654321">+91 91987654321</a></p>
+                <p>Email: <a href="mailto:support@bloomhub.com">support@bloomhub.com</a></p>
+            </div>
+
+            <div class="footer-col newsletter-col">
+                <h4>SIGN UP FOR OUR NEWSLETTER</h4>
+                <form>
+                    <input type="email" placeholder="Enter email address" required />
+                    <button type="submit">→</button>
+                </form>
+                <p>For plant care tips, our featured plant of the week, exclusive offers and discounts</p>
+                <div class="social-icons">
+                    <a href="#"><i class="fas fa-leaf"></i></a>
+                    <a href="#"><i class="fab fa-facebook"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-linkedin"></i></a>
+                    <a href="#"><i class="fab fa-youtube"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© 2025 BloomHub | Crafted with <i class="fas fa-leaf"></i> for Plant Lovers</p>
+        </div>
+    </footer>
+
+    <!-- JS for Hero Slideshow -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const hero = document.querySelector(".hero");
+            const images = [
+                "<%= '/images/slide0.jpg' %>",
+                "<%= '/images/slide1.jpg' %>",
+                "<%= '/images/slide2.jpg' %>",
+            ];
+            let index = 0;
+
+            setInterval(() => {
+                index = (index + 1) % images.length;
+                hero.style.backgroundImage = `url('${images[index]}')`;
+            }, 2500);
+        });
+    </script>
+</body>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        // Existing falling leaves functionality
+        const logo = document.querySelector(".logo img"); // logo image
+        const leafImages = [
+            "<%= '/images/leaf-lightgreen.png' %>",
+            "<%= '/images/leaf-yellow.png' %>",
+            "<%= '/images/leaf-green.png' %>",
+            "<%= '/images/leaf-darkgreen.png' %>"
+        ];
+    
+        function createFallingLeaves() {
+            const container = document.createElement("div");
+            container.classList.add("falling-leaves");
+            document.body.appendChild(container);
+    
+            for (let i = 0; i < 20; i++) {
+                const leaf = document.createElement("div");
+                leaf.classList.add("leaf");
+    
+                const randomImage = leafImages[Math.floor(Math.random() * leafImages.length)];
+                leaf.style.backgroundImage = `url(${randomImage})`;
+                leaf.style.left = Math.random() * 100 + "vw";
+    
+                const size = Math.random() * 70 + 40;
+                leaf.style.width = size + "px";
+                leaf.style.height = size + "px";
+    
+                leaf.style.animationDuration = (Math.random() * 3 + 3) + "s";
+                leaf.style.animationDelay = (Math.random() * 2) + "s";
+    
+                container.appendChild(leaf);
+    
+                setTimeout(() => {
+                    leaf.remove();
+                }, 7000);
+            }
+    
+            setTimeout(() => {
+                container.remove();
+            }, 7000);
+        }
+    
+        // Add falling leaves functionality to logo click
+        logo.addEventListener("click", createFallingLeaves);
+    
+        // NEW: Add to Cart functionality [web:62][web:66]
+        window.addToCart = async function(name, price, image) {
+            try {
+                const response = await fetch('/add-to-cart', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ name, price, image })
+                });
+    
+                const result = await response.json();
+                
+                if (result.success) {
+                    // Update cart count
+                    const cartCountElement = document.getElementById('cart-count');
+                    if (cartCountElement) {
+                        cartCountElement.textContent = result.cartCount;
+                    }
+                    
+                    // Show success message
+                    showNotification(`${name} added to cart!`);
+                }
+            } catch (error) {
+                console.error('Error adding to cart:', error);
+                showNotification('Error adding item to cart', 'error');
+            }
+        };
+    
+        // NEW: Notification function
+        window.showNotification = function(message, type = 'success') {
+            const notification = document.createElement('div');
+            notification.className = `notification ${type}`;
+            notification.textContent = message;
+            notification.style.cssText = `
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                background: ${type === 'success' ? '#4a7c59' : '#ff4757'};
+                color: white;
+                padding: 15px 20px;
+                border-radius: 5px;
+                z-index: 1000;
+                animation: slideIn 0.3s ease;
+            `;
+            
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.remove();
+            }, 3000);
+        };
+    
+        // NEW: Load initial cart count (optional)
+        async function loadCartCount() {
+            try {
+                // This could be expanded to fetch cart count from server if needed
+                const cartCountElement = document.getElementById('cart-count');
+                if (cartCountElement && !cartCountElement.textContent) {
+                    cartCountElement.textContent = '0';
+                }
+            } catch (error) {
+                console.error('Error loading cart count:', error);
+            }
+        }
+    
+        // Initialize cart count
+        loadCartCount();
+    });
+    
+    // Hero slideshow functionality (keep this separate as it doesn't depend on DOM ready)
+    document.addEventListener("DOMContentLoaded", function () {
+        const hero = document.querySelector(".hero");
+        const images = [
+            "<%= '/images/slide0.jpg' %>",
+            "<%= '/images/slide1.jpg' %>",
+            "<%= '/images/slide2.jpg' %>",
+        ];
+        let index = 0;
+    
+        setInterval(() => {
+            index = (index + 1) % images.length;
+            hero.style.backgroundImage = `url('${images[index]}')`;
+        }, 2500);
+    });
+    </script>
+    <style>
+        @keyframes slideIn {
+            from { transform: translateX(100%); }
+            to { transform: translateX(0); }
+        }
+        
+        .cart-link {
+            position: relative;
+        }
+        
+        .cart-count {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background: #ff4757;
+            color: white;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            font-size: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 20px;
+        }
+        
+        .notification {
+            font-family: Arial, sans-serif;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+        </style>
+        
+    
+
+</html>

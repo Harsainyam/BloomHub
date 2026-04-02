@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BloomHub</title>
+
+  <!-- SEO -->
+  <meta name="description" content="BloomHub - Buy indoor & outdoor plants, pots, seeds, and gardening essentials.">
+  <meta name="keywords" content="plants, nursery, gardening, indoor plants, outdoor plants, pots, seeds">
+  <meta name="author" content="BloomHub">
+  <link rel="icon" href="<%= '/images/favicon.ico' %>" />
+
+  <!-- Fonts & Styles -->
+  <link rel="stylesheet" href="<%= '/css/home.css' %>" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+  <style>
+    /* 🌿 Categories Styling */
+    .categories {
+      text-align: center;
+      padding: 50px 20px;
+    }
+
+    .categories h3 {
+      font-size: 2rem;
+      margin-bottom: 30px;
+      color: #2f6d2f;
+    }
+
+    .category-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 20px;
+    }
+
+    .category-card {
+      position: relative;
+      overflow: hidden;
+      border-radius: 15px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+    }
+
+    .category-card img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.4s ease;
+    }
+
+    .category-card:hover img {
+      transform: scale(1.1);
+    }
+
+    .overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(47, 109, 47, 0.6);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      transition: opacity 0.4s ease;
+    }
+
+    .category-card:hover .overlay {
+      opacity: 1;
+    }
+
+    .overlay span {
+      color: #fff;
+      font-size: 1.3rem;
+      font-weight: bold;
+      text-transform: uppercase;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Header -->
+  <header>
+    <div class="logo">
+      <img src="<%= '/images/logo.jpg' %>" alt="BloomHub Logo" />
+      <h1>BloomHub</h1>
+    </div>
+    <nav>
+      <ul>
+        <li><a href="/">Home</a></li>
+        <!-- <li><a href="/shop">Shop</a></li> -->
+        <!-- <li><a href="/categories">Categories</a></li> -->
+        <li><a href="/blog">Blog</a></li>
+        <li><a href="/contact">Contact</a></li>
+      </ul>
+    </nav>
+    <div class="search-cart">
+      <input type="text" placeholder="Search plants..." />
+      <button class="icon-btn" aria-label="Search"><i class="fas fa-search"></i></button>
+      <button class="icon-btn" aria-label="Cart"><i class="fas fa-shopping-cart"></i></button>
+      <a href="/login" class="icon-btn" aria-label="Profile"><i class="fas fa-user"></i></a>
+    </div>
+  </header>
+
+  <main>
+    <!-- Hero Section -->
+    <section class="hero"
+      style="background-image: url('https://images.unsplash.com/photo-1501004318641-b39e6451bec6')">
+      <div class="overlay">
+        <h2>Bring Nature Home</h2>
+        <p>Indoor plants, garden essentials, and everything green.</p>
+        <button class="cta-btn">Shop Now</button>
+      </div>
+    </section>
+
+    <!-- ✅ Feature Highlights -->
+    <section class="features">
+      <div class="feature">
+        <i class="fas fa-truck"></i>
+        <p><strong>Free Shipping</strong> ₹999+</p>
+      </div>
+      <div class="feature">
+        <i class="fas fa-sync-alt"></i>
+        <p><strong>14 Days</strong> Replacement if damaged*</p>
+      </div>
+      <div class="feature">
+        <i class="fas fa-seedling"></i>
+        <p><strong>Expert Care Guidance</strong> from Plant Doctors</p>
+      </div>
+      <div class="feature">
+        <i class="fas fa-users"></i>
+        <p><strong>10M+</strong> Trusted Plant Lovers</p>
+      </div>
+    </section>
+
+    <!-- 🌿 Categories Section (NEW DESIGN) -->
+    <section class="categories">
+      <h3>Shop by Category</h3>
+      <div class="category-grid">
+
+        <div class="category-card">
+          <a href="/indoor">
+            <img src="<%= '/images/indoor.pnj.png' %>" alt="Indoor Plants">
+            <div class="overlay"><span>Indoor Plants</span></div>
+          </a>
+        </div>
+
+        <div class="category-card">
+          <a href="/outdoor">
+            <img src="<%= '/images/outdoor.jpeg' %>" alt="Outdoor Plants">
+            <div class="overlay"><span>Outdoor Plants</span></div>
+          </a>
+       </div>
+  </section>
+
+        
+
+
+    <!-- Newsletter -->
+    <section class="newsletter">
+      <h3>Join Our Green Community</h3>
+      <p>Get gardening tips and plant care guides straight to your inbox.</p>
+      <form action="/subscribe" method="post">
+        <input type="email" name="email" placeholder="Your email" required />
+        <button type="submit">Subscribe</button>
+      </form>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="footer-container">
+      <div class="footer-col">
+        <h4>ABOUT US</h4>
+        <ul>
+          <li><a href="#">Our Story</a></li>
+          <li><a href="#">Contact Us</a></li>
+          <li><a href="#">Careers</a></li>
+          <li><a href="#">Locate Stores</a></li>
+          <li><a href="#">Own Grown</a></li>
+          <li><a href="#">Garden Services & Maintenance</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>CUSTOMER CARE</h4>
+        <ul>
+          <li><a href="/quiz">Take The Plant Quiz</a></li>
+          <li><a href="#">Track Order</a></li>
+          <li><a href="#">Shipping Policy</a></li>
+          <li><a href="#">Terms and Conditions</a></li>
+          <li><a href="#">Privacy Policy</a></li>
+          <li><a href="#">FAQs</a></li>
+          <li><a href="#">Refund Policy</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>OFFERS & REWARDS</h4>
+        <ul>
+          <li><a href="#">Plant Parent Rewards Club</a></li>
+          <li><a href="#">BloomHub Coupons</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>GET IN TOUCH</h4>
+        <p>WhatsApp: <a href="https://chat.whatsapp.com/Gg2OTYdk4zp0GN1eAxr8oS">9815517131</a></p>
+        <p>Call: <a href="tel:+91987654321">+91 91987654321</a></p>
+        <p>Email: <a href="mailto:support@bloomhub.com">support@bloomhub.com</a></p>
+      </div>
+
+      <div class="footer-col newsletter-col">
+        <h4>SIGN UP FOR OUR NEWSLETTER</h4>
+        <form>
+          <input type="email" placeholder="Enter email address" required />
+          <button type="submit">→</button>
+        </form>
+        <p>For plant care tips, featured plants, exclusive offers & discounts</p>
+        <div class="social-icons">
+          <a href="#"><i class="fas fa-leaf"></i></a>
+          <a href="#"><i class="fab fa-facebook"></i></a>
+          <a href="#"><i class="fab fa-instagram"></i></a>
+          <a href="#"><i class="fab fa-linkedin"></i></a>
+          <a href="#"><i class="fab fa-youtube"></i></a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2025 BloomHub | Crafted with <i class="fas fa-leaf"></i> for Plant Lovers</p>
+    </div>
+  </footer>
+
+  <!-- JS for Hero Slideshow -->
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      const hero = document.querySelector(".hero");
+      const images = [
+        "<%= '/images/slide0.jpg' %>",
+        "<%= '/images/slide1.jpg' %>",
+        "<%= '/images/slide2.jpg' %>"
+      ];
+      let index = 0;
+
+      setInterval(() => {
+        index = (index + 1) % images.length;
+        hero.style.backgroundImage = `url('${images[index]}')`;
+      }, 2500);
+    });
+  </script>
+</body>
+
+</html>

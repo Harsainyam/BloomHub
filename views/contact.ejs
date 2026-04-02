@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Contact Us | BloomHub</title>
+
+  <!-- SEO -->
+  <meta name="description" content="Get in touch with BloomHub for plant care help, orders, or partnerships.">
+  <meta name="keywords" content="contact, bloomhub, support, plant shop">
+  <meta name="author" content="BloomHub">
+  <link rel="icon" href="<%= '/images/favicon.ico' %>" />
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="<%= '/css/contact.css' %>" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      background: #f9fdf9;
+      color: #333;
+    }
+
+    header.contact-header {
+      text-align: center;
+      padding: 60px 20px;
+      background: linear-gradient(120deg, #2f6d2f, #4caf50);
+      color: #fff;
+    }
+
+    header.contact-header h1 {
+      font-size: 2.5rem;
+      margin-bottom: 10px;
+    }
+
+    header.contact-header p {
+      font-size: 1.1rem;
+    }
+
+    main.contact-main {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 30px;
+      padding: 50px 20px;
+      max-width: 1200px;
+      margin: auto;
+    }
+
+    /* Contact Form */
+    .contact-form {
+      background: #fff;
+      padding: 25px;
+      border-radius: 12px;
+      box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .contact-form h2 {
+      margin-bottom: 15px;
+      color: #2f6d2f;
+    }
+
+    .contact-form label {
+      display: block;
+      margin: 12px 0 5px;
+      font-weight: bold;
+    }
+
+    .contact-form input,
+    .contact-form textarea {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      font-size: 1rem;
+    }
+
+    .contact-form textarea {
+      resize: none;
+      height: 120px;
+    }
+
+    .contact-form button {
+      margin-top: 15px;
+      padding: 10px 20px;
+      background: #2f6d2f;
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .contact-form button:hover {
+      background: #4caf50;
+    }
+
+    /* Contact Info */
+    .contact-info {
+      background: #fff;
+      padding: 25px;
+      border-radius: 12px;
+      box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .contact-info h2 {
+      margin-bottom: 15px;
+      color: #2f6d2f;
+    }
+
+    .contact-info p {
+      margin: 8px 0;
+      font-size: 0.95rem;
+    }
+
+    .contact-info a {
+      color: #2f6d2f;
+      text-decoration: none;
+    }
+
+    .contact-info a:hover {
+      text-decoration: underline;
+    }
+
+    .social-icons {
+      margin-top: 15px;
+    }
+
+    .social-icons a {
+      margin-right: 10px;
+      font-size: 1.3rem;
+      color: #2f6d2f;
+      transition: 0.3s;
+    }
+
+    .social-icons a:hover {
+      color: #4caf50;
+    }
+
+    /* Map Section */
+    .map {
+      margin-top: 30px;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    iframe {
+      width: 100%;
+      height: 300px;
+      border: none;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Header -->
+  <header class="contact-header">
+    <h1>Contact Us</h1>
+    <p>We’d love to hear from you! Reach out for plant care help, orders, or collaborations.</p>
+  </header>
+
+  <main class="contact-main">
+    <!-- Contact Form -->
+    <section class="contact-form">
+      <h2>📩 Send us a message</h2>
+      <form action="/contact" method="post">
+        <label for="name">Your Name</label>
+        <input type="text" id="name" name="name" required>
+
+        <label for="email">Your Email</label>
+        <input type="email" id="email" name="email" required>
+
+        <label for="message">Message</label>
+        <textarea id="message" name="message" required></textarea>
+
+        <button type="submit">Send Message</button>
+      </form>
+    </section>
+
+    <!-- Contact Info -->
+    <aside class="contact-info">
+      <h2>🌿 Get in Touch</h2>
+      <p><i class="fas fa-map-marker-alt"></i> Chandigarh, India</p>
+      <p><i class="fas fa-phone"></i> <a href="tel:+91XXXXXXXXX">+91 XXXXXXXXXX</a></p>
+      <p><i class="fas fa-envelope"></i> <a href="mailto:support@bloomhub.com">support@bloomhub.com</a></p>
+
+      <div class="social-icons">
+        <a href="#"><i class="fab fa-facebook"></i></a>
+        <a href="#"><i class="fab fa-instagram"></i></a>
+        <a href="#"><i class="fab fa-linkedin"></i></a>
+        <a href="#"><i class="fab fa-youtube"></i></a>
+      </div>
+    </aside>
+  </main>
+
+  <!-- Map -->
+  <div class="map">
+    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3430.6373686747165!2d76.779417!3d30.733315!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390fedc61b9e05a7%3A0xa99325b7faeb6e41!2sChandigarh!5e0!3m2!1sen!2sin!4v1694075900000"
+      allowfullscreen="" loading="lazy"></iframe>
+  </div>
+</body>
+
+</html>

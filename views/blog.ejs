@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BloomHub Blog</title>
+
+  <!-- SEO -->
+  <meta name="description" content="BloomHub Blog - Plant care guides, gardening tips, and inspiration for plant lovers.">
+  <meta name="keywords" content="blog, gardening tips, indoor plants, outdoor plants, plant care">
+  <meta name="author" content="BloomHub">
+  <link rel="icon" href="<%= '/images/favicon.ico' %>" />
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="<%= '/css/blog.css' %>" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+  <style>
+    /* Blog Page Styling */
+
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      background: #f9fdf9;
+      color: #333;
+    }
+
+    header.blog-header {
+      text-align: center;
+      padding: 60px 20px;
+      background: linear-gradient(120deg, #2f6d2f, #4caf50);
+      color: #fff;
+    }
+
+    header.blog-header h1 {
+      font-size: 2.8rem;
+      margin-bottom: 10px;
+    }
+
+    header.blog-header p {
+      font-size: 1.2rem;
+    }
+
+    nav.blog-categories {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      padding: 15px;
+      background: #fff;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    nav.blog-categories a {
+      padding: 8px 18px;
+      border: 1px solid #2f6d2f;
+      border-radius: 25px;
+      text-decoration: none;
+      color: #2f6d2f;
+      transition: 0.3s;
+    }
+
+    nav.blog-categories a:hover {
+      background: #2f6d2f;
+      color: #fff;
+    }
+
+    main.blog-main {
+      display: grid;
+      grid-template-columns: 3fr 1fr;
+      gap: 20px;
+      padding: 40px 20px;
+      max-width: 1200px;
+      margin: auto;
+    }
+
+    section.blog-list h2 {
+      margin-bottom: 20px;
+      color: #2f6d2f;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 20px;
+    }
+
+    .grid article {
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
+      overflow: hidden;
+      transition: transform 0.3s ease;
+    }
+
+    .grid article:hover {
+      transform: translateY(-5px);
+    }
+
+    .grid img {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+    }
+
+    .grid h3 {
+      font-size: 1.3rem;
+      margin: 10px;
+      color: #2f6d2f;
+    }
+
+    .grid p {
+      margin: 0 10px 15px;
+      font-size: 0.95rem;
+      color: #555;
+    }
+
+    aside.blog-sidebar {
+      background: #fff;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    aside.blog-sidebar h3 {
+      color: #2f6d2f;
+      margin-bottom: 10px;
+    }
+
+    aside.blog-sidebar ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    aside.blog-sidebar ul li {
+      margin-bottom: 8px;
+      font-size: 0.95rem;
+    }
+
+    aside.blog-sidebar form {
+      display: flex;
+      margin-top: 10px;
+    }
+
+    aside.blog-sidebar input {
+      flex: 1;
+      padding: 8px;
+      border: 1px solid #ccc;
+      border-radius: 8px 0 0 8px;
+    }
+
+    aside.blog-sidebar button {
+      background: #2f6d2f;
+      border: none;
+      color: #fff;
+      padding: 8px 15px;
+      border-radius: 0 8px 8px 0;
+      cursor: pointer;
+    }
+
+    section.blog-footer-cta {
+      text-align: center;
+      padding: 50px 20px;
+      background: #eaf7ea;
+      margin-top: 40px;
+    }
+
+    section.blog-footer-cta h2 {
+      margin-bottom: 10px;
+      color: #2f6d2f;
+    }
+
+    section.blog-footer-cta .cta-btn {
+      display: inline-block;
+      margin-top: 10px;
+      padding: 10px 20px;
+      background: #2f6d2f;
+      color: #fff;
+      border-radius: 8px;
+      text-decoration: none;
+      transition: 0.3s;
+    }
+
+    section.blog-footer-cta .cta-btn:hover {
+      background: #4caf50;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Blog Header -->
+  <header class="blog-header">
+    <h1>🌱 BloomHub Blog</h1>
+    <p>Your go-to guide for plant care, gardening tips, and inspiration.</p>
+  </header>
+
+  <!-- Blog Categories -->
+  <nav class="blog-categories">
+    <a href="/blog/indoor">Indoor Plants</a>
+    <a href="/blog/outdoor">Outdoor Plants</a>
+    <a href="/blog/tools">Gardening Tools</a>
+    <a href="/blog/tips">Tips & Guides</a>
+  </nav>
+
+  <!-- Blog Content -->
+  <main class="blog-main">
+    <!-- Blog Articles -->
+    <section class="blog-list">
+      <h2>Latest Articles</h2>
+      <div class="grid">
+        <article>
+          <a href="https://www.architecturaldigest.com/story/how-to-care-for-succulents" style="text-decoration: none;">
+            <img src="<%= '/images/care.jpg' %>" alt="Succulent Care" />
+            <h3>How to Care for Succulents</h3>
+            <p>Succulents are low-maintenance, but they need proper sunlight and watering. Learn the do's and don'ts.</p>
+          </a>
+        </article>
+
+        <article>
+          <a href="https://phsonline.org/for-gardeners/gardeners-blog/15-common-houseplants-perfect-for-your-home" style="text-decoration: none;">
+            <img src="<%= '/images/tenplants.jpg' %>" alt="Indoor Plants" />
+            <h3>15 Best Indoor Plants</h3>
+            <p>Greenery that fits perfectly in your living room while purifying air.</p>
+          </a>
+        </article>
+
+        <article>
+          <a href="https://www.ugaoo.com/collections/garden-tools?srsltid=AfmBOoqoaws_WDVm1LvmLdzgeEXHTP47yxh884bXhfjfT6AAnL7h27ox" style="text-decoration: none;">
+            <img src="<%= '/images/gardeningtools.jpg' %>" alt="Gardening Tools" />
+            <h3>Essential Gardening Tools</h3>
+            <p>Everything you need to start your garden journey hassle-free.</p>
+          </a>
+        </article>
+      </div>
+    </section>
+
+    <!-- Sidebar -->
+    <aside class="blog-sidebar">
+      <h3>🌿 Quick Tips</h3>
+      <ul>
+        <li>Water plants in the morning for better absorption.</li>
+        <li>Rotate pots weekly for even sunlight.</li>
+        <li>Use compost for healthier soil.</li>
+      </ul>
+
+      <h3>📩 Subscribe</h3>
+      <form action="/subscribe" method="post">
+        <input type="email" name="email" placeholder="Your email" required />
+        <button type="submit">Join</button>
+      </form>
+    </aside>
+  </main>
+
+  <!-- Footer CTA -->
+  <section class="blog-footer-cta">
+    <h2>Want More Green Inspiration?</h2>
+    <p>Check out our plant shop or explore more guides!</p>
+    <a href="/" class="cta-btn">Back to Home</a>
+  </section>
+</body>
+
+</html>
