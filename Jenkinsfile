@@ -18,18 +18,19 @@ pipeline {
                 sh 'npm test'
             }
         }
-        stage('Deploy') {
-            steps {
-                sh '''
-                    pkill node || true
-                    sleep 1
-                    cd /home/ubuntu/jenkins-agent/workspace/Pipeline
-                    nohup node server.js > /home/ubuntu/app.log 2>&1 &
-                    sleep 3
-                    echo "App started on port 3000"
-                '''
-            }
-        }
+       stage('Deploy') {
+    steps {
+        sh '''
+            pkill node || true
+            sleep 1
+            cd /home/ubuntu/jenkins-agent/workspace/Pipeline
+            cp /home/ubuntu/jenkins-agent/workspace/Pipeline/.env /home/ubuntu/.env
+            nohup node /home/ubuntu/jenkins-agent/workspace/Pipeline/server.js > /home/ubuntu/app.log 2>&1 &
+            sleep 3
+            echo "App started on port 3000"
+        '''
+    }
+}
     }
     post {
         success {
