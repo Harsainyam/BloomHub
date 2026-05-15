@@ -1,5 +1,6 @@
 pipeline {
-    agent any
+    agent { label 'agent-1' }
+
     stages {
         stage('Clone') {
             steps {
@@ -8,10 +9,31 @@ pipeline {
                     url: 'https://github.com/Harsainyam/BloomHub.git'
             }
         }
-        stage('Build') {
+        stage('Install') {
             steps {
-                sh 'echo Build step here'
+                sh 'npm install'
             }
+        }
+        stage('Test') {
+            steps {
+                sh 'npm test'
+            }
+        }
+        stage('Deploy') {
+            steps {
+                sh '''
+                    pkill node || true
+                    nohup node server.js &
+                '''
+            }
+        }
+    }
+    post {
+        success {
+            echo 'Deployment successful!'
+        }
+        failure {
+            echo 'Build failed!'
         }
     }
 }
