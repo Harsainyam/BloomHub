@@ -1,6 +1,5 @@
 pipeline {
     agent { label 'agent-1' }
-
     stages {
         stage('Clone') {
             steps {
@@ -23,7 +22,11 @@ pipeline {
             steps {
                 sh '''
                     pkill node || true
-                    nohup node server.js &
+                    sleep 1
+                    cd /home/ubuntu/jenkins-agent/workspace/Pipeline
+                    nohup node server.js > /home/ubuntu/app.log 2>&1 &
+                    sleep 3
+                    echo "App started on port 3000"
                 '''
             }
         }
