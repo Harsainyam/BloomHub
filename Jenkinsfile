@@ -23,11 +23,10 @@ pipeline {
         sh '''
             pkill node || true
             sleep 1
+            cp /home/ubuntu/app.env /home/ubuntu/jenkins-agent/workspace/Pipeline/.env
             cd /home/ubuntu/jenkins-agent/workspace/Pipeline
-            cp /home/ubuntu/jenkins-agent/workspace/Pipeline/.env /home/ubuntu/.env
-            nohup node /home/ubuntu/jenkins-agent/workspace/Pipeline/server.js > /home/ubuntu/app.log 2>&1 &
+            nohup node server.js > /home/ubuntu/app.log 2>&1 &
             sleep 3
-            echo "App started on port 3000"
         '''
     }
 }
